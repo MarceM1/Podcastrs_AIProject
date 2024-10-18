@@ -8,14 +8,18 @@ import {
 } from "@/components/ui/sheet"
 import { sidebarLinks } from "@/constants"
 import { cn } from "@/lib/utils"
+import { SignedIn, SignedOut, useClerk } from "@clerk/nextjs"
 import Image from "next/image"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
+import { Button } from "./ui/button"
 
 
 
 function MobileNav() {
   const pathname = usePathname()
+  const { signOut } = useClerk()
+  const router = useRouter()
 
   return (
     <section>
@@ -37,7 +41,7 @@ function MobileNav() {
                     <>
 
                       <SheetClose asChild key={label}>
-                        <Link  href={route} className={cn('flex items-center gap-3 py-4 max-lg:px-4 justify-start', {
+                        <Link href={route} className={cn('flex items-center gap-3 py-4 max-lg:px-4 justify-start', {
                           'bg-nav-focus border-r-4 border-orange-1': isActive
                         })}>
                           <Image src={imgURL} alt='Navbar links images' width={24} height={24} />
@@ -48,6 +52,24 @@ function MobileNav() {
                 })}
               </nav>
             </SheetClose>
+            <div>
+              <SignedOut>
+                <div className="flex-center w-full pb-14 max-lg:px-4 lg:pr-8">
+                  <Button asChild className='text-16 w-full bg-orange-1 font-extrabold text-white-1'>
+                    <Link href={'/sign-in'}>
+                      Sign In
+                    </Link>
+                  </Button>
+                </div>
+              </SignedOut>
+              <SignedIn>
+                <div className="flex-center w-full pb-14 max-lg:px-4 lg:pr-8">
+                  <Button className='text-16 w-full bg-orange-1 font-extrabold text-white-1' onClick={() => signOut(() => router.push('/'))}>
+                    Log out
+                  </Button>
+                </div>
+              </SignedIn>
+            </div>
           </div>
         </SheetContent>
       </Sheet>
