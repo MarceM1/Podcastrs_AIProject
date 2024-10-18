@@ -1,5 +1,5 @@
 import React, {
-    ComponentPropsWithRef,
+
     useCallback,
     useEffect,
     useState
@@ -60,9 +60,9 @@ type DotButtonProps = {
 export const DotButton: React.FC<DotButtonProps> = ({ selected, onClick }) => {
 
     return (
-        <button type="button" onClick={onClick}  className={cn('size-2.5 bg-white-3 cursor-pointer transition-all duration-500 rounded-full',{
+        <button type="button" onClick={onClick} className={cn('size-2.5 bg-white-3 cursor-pointer transition-all duration-500 rounded-full', {
             'bg-white-1': selected
         })} />
-           
+
     )
 }

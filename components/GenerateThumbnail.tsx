@@ -12,7 +12,6 @@ import { useAction, useMutation } from 'convex/react'
 import { api } from '@/convex/_generated/api'
 import { useUploadFiles } from '@xixixao/uploadstuff/react'
 import { v4 as uuidv4 } from 'uuid'
-import { AnyAaaaRecord } from 'dns'
 
 
 const GenerateThumbnail = ({ setImage, setImageStorageId, image, imagePrompt, setImagePrompt }: GenerateThumbnailProps) => {
@@ -40,6 +39,7 @@ const GenerateThumbnail = ({ setImage, setImageStorageId, image, imagePrompt, se
       const file = new File([blob], fileName, { type: 'image/png' })
 
       const uploaded = await startUpload([file]);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const storageId = (uploaded[0].response as any).storageId
 
       setImageStorageId(storageId)

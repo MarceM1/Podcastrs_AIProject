@@ -49,6 +49,7 @@ const useGeneratePodcast = ({ setAudio, voiceType, setAudioStorageId, voicePromp
 			const file = new File([blob], fileName, { type: 'audio/mpeg' })
 
 			const uploaded = await startUpload([file]);
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			const storageId = (uploaded[0].response as any).storageId
 
 			setAudioStorageId(storageId)
